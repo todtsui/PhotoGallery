@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kp.android.photogallery">
+    <!--使用protection level签名定义了自己的定制权限-->
+    <permission android:name="com.kp.android.photogallery.PRIVATE"
+                android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.kp.android.photogallery.PRIVATE" />
+
+    <application
+        android:name=".PhotoGalleryApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.PhotoGallery">
+        <activity
+            android:name=".PhotoGalleryActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver android:name=".NotificationReceiver"
+                  android:permission="com.kp.android.photogallery.PRIVATE"
+                  android:exported="false"><!--给receiver标签应用权限,防止其他应用触发该receiver-->
+            <intent-filter>
+                <!--只接收带SHOW_NOTIFICATION操作的intent-->
+                <action android:name="com.kp.android.photogallery.SHOW_NOTIFICATION" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
